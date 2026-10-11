@@ -1,0 +1,82 @@
+##### Level 0 ######
+
+
+POST http://localhost:8080/addBook HTTP/1.1
+content-type: application/xml 
+# or text/xml
+
+<book>
+    <title>Blabla</title>
+    <publisher>LAGUNA</publisher>
+    <publishingYear>2015</publishingYear>
+    <edition>SECOND</edition>
+    <description> An epic tale of justice, redemption, love, and revolutionin 19th-century France, centered on the ex-convict Jean Valjean.</description>
+    <genresIds>
+        <values>4</values>
+        <values>7</values>
+        <values>8</values>
+    </genresIds>
+    <authorsIds>
+        <values>5</values>
+    </authorsIds>
+</book>
+
+
+### Fetch a book
+POST http://localhost:8080/getBook/a324e8df-babe-4efa-ba02-b490c0f865cf HTTP/1.1
+content-type: application/xml 
+# or text/xml
+
+##### Level 1 ######
+
+### Create a book
+POST http://localhost:8080/api/v1/level-1/books HTTP/1.1
+content-type: application/json
+accept: application/json 
+
+{
+  "title": "Blabla",
+  "publisher": "LAGUNA",
+  "publishingYear": 2015,
+  "edition": "SECOND",
+  "description": "An epic tale of justice, redemption, love, and revolutionin 19th-century France, centered on the ex-convict Jean Valjean.",
+  "genresIds": [4, 7, 8],
+  "authorsIds": [5]
+}
+
+### Fetch a book
+POST http://localhost:8080/api/v1/level-1/books/12dd9a54-51d2-4b9a-b58b-a009853936b8 HTTP/1.1
+content-type: application/json
+accept: application/json 
+
+
+##### Level 2 ######
+
+### Create a book
+POST http://localhost:8080/api/v1/level-two/books HTTP/1.1
+content-type: application/json
+accept: application/json 
+
+{
+  "title": "Blabla",
+  "publisher": "LAGUNA",
+  "publishingYear": 2015,
+  "edition": "SECOND",
+  "description": "An epic tale of justice, redemption, love, and revolutionin 19th-century France, centered on the ex-convict Jean Valjean.",
+  "genresIds": [4, 7, 8],
+  "authorsIds": [5]
+}
+
+### Fetch a book
+GET http://localhost:8080/api/v1/level-two/books/007e9178-bd6f-44e4-803b-10e94cfced72 HTTP/1.1
+content-type: application/json
+accept: application/json 
+
+
+
+
+
+##### Level 3 ######
+
+### List authors
+GET http://localhost:8080/api/v1/level-three/authors?page=0&sort=fullName HTTP/1.1
