@@ -1,15 +1,17 @@
-package edu.fink.np.rest.booksapi.controller.v1.handler;
+package edu.fink.np.rest.booksapi.controller.handler;
 
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import edu.fink.np.rest.booksapi.exception.ApiException;
 import edu.fink.np.rest.booksapi.exception.ErrorReport;
+import jakarta.servlet.ServletException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -82,4 +84,6 @@ public class ApiExceptionHandler {
                 HttpStatusCode.valueOf(ErrorReport.INTERNAL_SERVER_ERROR.statusCode())
         );
     }
+
+    // TODO: Servlet exceptions are not handled properly,
 }

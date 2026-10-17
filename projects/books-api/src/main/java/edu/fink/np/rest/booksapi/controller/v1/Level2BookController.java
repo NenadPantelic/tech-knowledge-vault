@@ -1,8 +1,8 @@
 package edu.fink.np.rest.booksapi.controller.v1;
 
 import edu.fink.np.rest.booksapi.dto.request.NewBook;
-import edu.fink.np.rest.booksapi.dto.response.BookDTO;
-import edu.fink.np.rest.booksapi.service.BookServiceV1;
+import edu.fink.np.rest.booksapi.dto.response.book.BookDTOV1;
+import edu.fink.np.rest.booksapi.service.book.BookServiceV1;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +25,14 @@ public class Level2BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
-    public BookDTO addBook(@RequestBody NewBook newBook) {
+    public BookDTOV1 addBook(@RequestBody NewBook newBook) {
         log.info("Received a request to add a new book");
         return bookServiceV1.addBook(newBook);
     }
 
     @RequestMapping("/{id}")
     @GetMapping
-    public BookDTO getBook(@PathVariable("id") UUID bookId) {
+    public BookDTOV1 getBook(@PathVariable("id") UUID bookId) {
         log.info("Received a request to fetch a book by ID: {}", bookId);
         return bookServiceV1.getBook(bookId);
     }

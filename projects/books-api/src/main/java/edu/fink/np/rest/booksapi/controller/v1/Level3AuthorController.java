@@ -2,9 +2,9 @@ package edu.fink.np.rest.booksapi.controller.v1;
 
 import edu.fink.np.rest.booksapi.dto.response.AuthorDTO;
 import edu.fink.np.rest.booksapi.dto.response.MinimalAuthorDTO;
-import edu.fink.np.rest.booksapi.dto.response.MinimalBookDTO;
+import edu.fink.np.rest.booksapi.dto.response.book.MinimalBookDTOV1;
 import edu.fink.np.rest.booksapi.service.AuthorService;
-import edu.fink.np.rest.booksapi.service.BookServiceV1;
+import edu.fink.np.rest.booksapi.service.book.BookServiceV1;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
@@ -28,13 +28,14 @@ public class Level3AuthorController {
     private final AuthorService authorService;
     private final BookServiceV1 bookServiceV1;
 
-    public Level3AuthorController(AuthorService authorService, BookServiceV1 bookServiceV1) {
+    public Level3AuthorController(AuthorService authorService,
+                                  BookServiceV1 bookServiceV1) {
         this.authorService = authorService;
         this.bookServiceV1 = bookServiceV1;
     }
 
     @RequestMapping("/{id}")
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public AuthorDTO getAuthor(@PathVariable("id") Long authorId) {
         log.info("Received a request to fetch an author by ID: {}", authorId);
         return authorService.getAuthor(authorId);
@@ -45,8 +46,7 @@ public class Level3AuthorController {
     public CollectionModel<MinimalAuthorDTO> listAuthors(@RequestParam(value = "page", defaultValue = "0") int page,
                                                          @RequestParam(value = "size", defaultValue = "50") int size,
                                                          @RequestParam(value = "sort", defaultValue = "createdOn") String sortBy,
-                                                         @RequestParam(value = "order", defaultValue = "DESC") String order
-    ) {
+                                                         @RequestParam(value = "order", defaultValue = "DESC") String order) {
         List<MinimalAuthorDTO> authors = authorService.listAuthors(page, size, sortBy, order);
 
         for (MinimalAuthorDTO author : authors) {
@@ -55,7 +55,7 @@ public class Level3AuthorController {
             author.add(selfLink);
 
             // a bit wasteful, we should count here
-            List<MinimalBookDTO> booksByAuthor = bookServiceV1.findBooksByAuthor(authorId);
+            List<MinimalBookDTOV1> booksByAuthor = bookServiceV1.findBooksByAuthor(authorId);
             if (booksByAuthor != null && !booksByAuthor.isEmpty()) {
                 Link booksLink = linkTo(methodOn(Level3AuthorController.class)
                         .listBooksByAuthor(authorId)).withRel("books");
@@ -69,7 +69,7 @@ public class Level3AuthorController {
 
     @RequestMapping("/{id}/books")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MinimalBookDTO> listBooksByAuthor(@PathVariable("id") Long authorId) {
+    public List<MinimalBookDTOV1> listBooksByAuthor(@PathVariable("id") Long authorId) {
         log.info("Received a request to list books by an author...");
         return bookServiceV1.findBooksByAuthor(authorId);
     }

@@ -1,24 +1,27 @@
 package edu.fink.np.rest.booksapi.mapper;
 
-import edu.fink.np.rest.booksapi.dto.response.*;
+import edu.fink.np.rest.booksapi.dto.response.book.BookDTOV1;
+import edu.fink.np.rest.booksapi.dto.response.book.MinimalBookDTOV1;
 import edu.fink.np.rest.booksapi.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookMapper {
+public class BookMapperV1 {
 
-    public static BookDTO mapToDTO(Book book) {
+    public static BookDTOV1 mapToDTO(Book book) {
         if (book == null) {
             return null;
         }
 
-        return new BookDTO(
+        return new BookDTOV1(
                 book.getId(),
                 book.getTitle(),
                 book.getPublisher(),
                 book.getPublishingYear(),
                 book.getDescription(),
+                book.getPrice(),
+                book.getDiscountInPercent(),
                 book.getEdition().getDisplayValue(),
                 AuthorMapper.mapToDTOList(book.getAuthors()),
                 GenreMapper.mapToDTOList(book.getGenres())
@@ -26,30 +29,31 @@ public class BookMapper {
     }
 
 
-    public static MinimalBookDTO mapToMinimalDTO(Book book) {
+    public static MinimalBookDTOV1 mapToMinimalDTO(Book book) {
         if (book == null) {
             return null;
         }
 
-        return new MinimalBookDTO(
+        return new MinimalBookDTOV1(
                 book.getId(),
                 book.getTitle(),
                 book.getPublisher(),
                 book.getPublishingYear(),
                 book.getEdition().getDisplayValue(),
+                book.getPrice(),
                 AuthorMapper.mapToDTOList(book.getAuthors()),
                 GenreMapper.mapToDTOList(book.getGenres())
         );
     }
 
-    public static List<MinimalBookDTO> mapToDTOList(Iterable<Book> books) {
+    public static List<MinimalBookDTOV1> mapToDTOList(Iterable<Book> books) {
         if (books == null) {
             return null;
         }
 
-        List<MinimalBookDTO> mappedBooks = new ArrayList<>();
+        List<MinimalBookDTOV1> mappedBooks = new ArrayList<>();
         for (Book book : books) {
-            mappedBooks.add(BookMapper.mapToMinimalDTO(book));
+            mappedBooks.add(BookMapperV1.mapToMinimalDTO(book));
         }
 
         return mappedBooks;

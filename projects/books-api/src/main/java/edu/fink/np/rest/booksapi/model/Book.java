@@ -1,6 +1,8 @@
 package edu.fink.np.rest.booksapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,13 @@ public class Book {
 
     @Length(min = 0, max = 8192)
     private String description;
+
+    @Min(0)
+    private float price; // you can also store currency or be explicit about it
+
+    @Min(0)
+    @Max(100)
+    private float discountInPercent;
 
     @Enumerated(value = EnumType.STRING)
     @Builder.Default

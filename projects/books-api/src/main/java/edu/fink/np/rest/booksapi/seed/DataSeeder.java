@@ -4,10 +4,10 @@ import edu.fink.np.rest.booksapi.dto.request.NewAuthor;
 import edu.fink.np.rest.booksapi.dto.request.NewBook;
 import edu.fink.np.rest.booksapi.dto.request.NewGenre;
 import edu.fink.np.rest.booksapi.dto.response.AuthorDTO;
-import edu.fink.np.rest.booksapi.dto.response.BookDTO;
+import edu.fink.np.rest.booksapi.dto.response.book.BookDTOV1;
 import edu.fink.np.rest.booksapi.dto.response.GenreDTO;
 import edu.fink.np.rest.booksapi.service.AuthorService;
-import edu.fink.np.rest.booksapi.service.BookServiceV1;
+import edu.fink.np.rest.booksapi.service.book.BookServiceV1;
 import edu.fink.np.rest.booksapi.service.GenreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,11 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class DataSeeder {
+
+    private static final int LOWER_PRICE = 400;
+    private static final int UPPER_EXCLUSIVE_PRICE = 5001;
 
     private static final List<String> GENRES = List.of(
             "Fantasy",
@@ -161,293 +165,190 @@ public class DataSeeder {
 
 
     private static final List<NewBook> BOOKS = List.of(
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Lord of the Rings",
                     "Allen & Unwin",
                     1954,
-                    "An epic fantasy journey following Frodo Baggins and his companions as they seek to destroy the One Ring.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An epic fantasy journey following Frodo Baggins and his companions as they seek to destroy the One Ring."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Hobbit",
                     "Allen & Unwin",
                     1937,
-                    "Bilbo Baggins joins a dangerous quest to reclaim the Lonely Mountain and its treasure from a dragon.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Bilbo Baggins joins a dangerous quest to reclaim the Lonely Mountain and its treasure from a dragon."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Harry Potter and the Philosopher's Stone",
                     "Bloomsbury",
                     1997,
-                    "A young wizard discovers his magical heritage and begins his education at Hogwarts School of Witchcraft and Wizardry.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A young wizard discovers his magical heritage and begins his education at Hogwarts School of Witchcraft and Wizardry."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "A Game of Thrones",
                     "Bantam Books",
                     1996,
-                    "Noble families struggle for power while an ancient threat awakens beyond the northern frontier.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Noble families struggle for power while an ancient threat awakens beyond the northern frontier."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Chronicles of Narnia",
                     "Geoffrey Bles",
                     1950,
-                    "Four children enter a magical world where they become involved in an epic struggle between good and evil.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Four children enter a magical world where they become involved in an epic struggle between good and evil."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Dune",
                     "Chilton Books",
                     1965,
-                    "A young nobleman becomes embroiled in politics, warfare, and prophecy on the desert planet Arrakis.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A young nobleman becomes embroiled in politics, warfare, and prophecy on the desert planet Arrakis."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Foundation",
                     "Gnome Press",
                     1951,
-                    "A mathematician develops a science of predicting humanity's future and attempts to preserve civilization.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A mathematician develops a science of predicting humanity's future and attempts to preserve civilization."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Left Hand of Darkness",
                     "Ace Books",
                     1969,
-                    "An envoy visits an alien world whose inhabitants challenge conventional ideas about gender and society.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An envoy visits an alien world whose inhabitants challenge conventional ideas about gender and society."
             ),
-            new NewBook(
-                    "Les Misérables",
+            DataSeeder.createNewBook("Les Misérables",
                     "A. Lacroix, Verboeckhoven & Cie",
                     1862,
-                    "An epic tale of justice, redemption, love, and revolution in nineteenth-century France.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An epic tale of justice, redemption, love, and revolution in nineteenth-century France."
             ),
-            new NewBook(
-                    "War and Peace",
+            DataSeeder.createNewBook("War and Peace",
                     "The Russian Messenger",
                     1869,
-                    "An epic portrait of Russian society during the Napoleonic Wars, following families through war and upheaval.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An epic portrait of Russian society during the Napoleonic Wars, following families through war and upheaval."
             ),
-            new NewBook(
-                    "The Book Thief",
+            DataSeeder.createNewBook("The Book Thief",
                     "Picador",
                     2005,
-                    "A young girl finds solace in books while growing up in Nazi Germany during World War II.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A young girl finds solace in books while growing up in Nazi Germany during World War II."
             ),
-            new NewBook(
-                    "The Murder of Roger Ackroyd",
+            DataSeeder.createNewBook("The Murder of Roger Ackroyd",
                     "William Collins, Sons",
                     1926,
-                    "Hercule Poirot investigates a mysterious murder in an English village where everyone has something to hide.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+
+                    "Hercule Poirot investigates a mysterious murder in an English village where everyone has something to hide."
             ),
-            new NewBook(
-                    "And Then There Were None",
+            DataSeeder.createNewBook("And Then There Were None",
                     "Collins Crime Club",
                     1939,
-                    "Ten strangers are invited to an isolated island where they are mysteriously killed one by one.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Ten strangers are invited to an isolated island where they are mysteriously killed one by one."
             ),
-            new NewBook(
-                    "The Hound of the Baskervilles",
+            DataSeeder.createNewBook("The Hound of the Baskervilles",
                     "George Newnes",
                     1902,
-                    "Sherlock Holmes investigates a legendary supernatural hound said to haunt the Baskerville family.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Sherlock Holmes investigates a legendary supernatural hound said to haunt the Baskerville family."
             ),
-            new NewBook(
-                    "The Girl with the Dragon Tattoo",
+            DataSeeder.createNewBook("The Girl with the Dragon Tattoo",
                     "Norstedts",
                     2005,
-                    "A journalist and a brilliant hacker investigate the decades-old disappearance of a wealthy man's niece.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A journalist and a brilliant hacker investigate the decades-old disappearance of a wealthy man's niece."
             ),
-            new NewBook(
-                    "Gone Girl",
+            DataSeeder.createNewBook("Gone Girl",
                     "Crown Publishing Group",
                     2012,
-                    "A man's wife disappears on their anniversary, turning their troubled marriage into a national mystery.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A man's wife disappears on their anniversary, turning their troubled marriage into a national mystery."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Silence of the Lambs",
                     "St. Martin's Press",
                     1988,
-                    "An FBI trainee seeks the help of an imprisoned killer to catch another dangerous murderer.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An FBI trainee seeks the help of an imprisoned killer to catch another dangerous murderer."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Pride and Prejudice",
                     "T. Egerton",
                     1813,
-                    "Elizabeth Bennet navigates love, family expectations, and social class in nineteenth-century England.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Elizabeth Bennet navigates love, family expectations, and social class in nineteenth-century England."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Jane Eyre",
                     "Smith, Elder & Co.",
                     1847,
-                    "An orphaned young woman struggles for independence and finds love while working as a governess.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An orphaned young woman struggles for independence and finds love while working as a governess."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Wuthering Heights",
                     "Thomas Cautley Newby",
                     1847,
-                    "A passionate and destructive love story unfolds against the bleak landscape of the Yorkshire moors.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A passionate and destructive love story unfolds against the bleak landscape of the Yorkshire moors."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Dracula",
                     "Archibald Constable and Company",
                     1897,
-                    "An English solicitor travels to Transylvania and encounters the mysterious Count Dracula.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "An English solicitor travels to Transylvania and encounters the mysterious Count Dracula."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Frankenstein",
                     "Lackington, Hughes, Harding, Mavor & Jones",
                     1818,
-                    "A scientist creates a living being whose existence leads to tragedy, isolation, and revenge.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A scientist creates a living being whose existence leads to tragedy, isolation, and revenge."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Shining",
                     "Doubleday",
                     1977,
-                    "A family isolated in a remote hotel encounters terrifying supernatural forces during the winter.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A family isolated in a remote hotel encounters terrifying supernatural forces during the winter."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Great Gatsby",
                     "Charles Scribner's Sons",
                     1925,
-                    "A mysterious millionaire's pursuit of a lost love exposes the illusions of wealth and the American Dream.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A mysterious millionaire's pursuit of a lost love exposes the illusions of wealth and the American Dream."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "To Kill a Mockingbird",
                     "J. B. Lippincott & Co.",
                     1960,
-                    "A young girl observes injustice and racial prejudice in a small Alabama town during the 1930s.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A young girl observes injustice and racial prejudice in a small Alabama town during the 1930s."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "One Hundred Years of Solitude",
                     "Editorial Sudamericana",
                     1967,
-                    "Several generations of the Buendía family experience love, war, tragedy, and magical events in a fictional town.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Several generations of the Buendía family experience love, war, tragedy, and magical events in a fictional town."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "The Count of Monte Cristo",
                     "Pétion",
                     1844,
-                    "A man falsely imprisoned for years escapes and uses a hidden fortune to seek revenge on those who betrayed him.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A man falsely imprisoned for years escapes and uses a hidden fortune to seek revenge on those who betrayed him."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Treasure Island",
                     "Cassell & Co.",
                     1883,
-                    "A young boy joins a dangerous voyage in search of buried pirate treasure.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A young boy joins a dangerous voyage in search of buried pirate treasure."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Around the World in Eighty Days",
                     "Jules Hetzel",
                     1872,
-                    "Phileas Fogg attempts to circumnavigate the globe in eighty days after making an extraordinary wager.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "Phileas Fogg attempts to circumnavigate the globe in eighty days after making an extraordinary wager."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "1984",
                     "Secker & Warburg",
                     1949,
-                    "In a totalitarian future, Winston Smith secretly rebels against a regime that controls truth and human thought.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "In a totalitarian future, Winston Smith secretly rebels against a regime that controls truth and human thought."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Brave New World",
                     "Chatto & Windus",
                     1932,
-                    "A futuristic society maintains stability through genetic engineering, conditioning, and artificial happiness.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "A futuristic society maintains stability through genetic engineering, conditioning, and artificial happiness."
             ),
-            new NewBook(
+            DataSeeder.createNewBook(
                     "Fahrenheit 451",
                     "Ballantine Books",
                     1953,
-                    "In a future society where books are forbidden, a fireman begins questioning the system he serves.",
-                    "First Edition",
-                    Set.of(),
-                    Set.of()
+                    "In a future society where books are forbidden, a fireman begins questioning the system he serves."
             )
     );
 
@@ -611,11 +512,13 @@ public class DataSeeder {
                     book.publisher(),
                     book.publishingYear(),
                     book.description(),
+                    book.price(),
+                    book.discount(),
                     book.edition(),
                     authorsIds, genresIds
             );
 
-            BookDTO createdBook = bookServiceV1.addBook(newBook);
+            BookDTOV1 createdBook = bookServiceV1.addBook(newBook);
             log.info("A new book has been created: {}", createdBook);
         });
 
@@ -661,5 +564,28 @@ public class DataSeeder {
                 .filter(Objects::nonNull)
                 .map(GenreDTO::id)
                 .collect(Collectors.toSet());
+    }
+
+    private static NewBook createNewBook(String title,
+                                         String publisher,
+                                         int publishingYear,
+                                         String description) {
+
+        return new NewBook(
+                title,
+                publisher,
+                publishingYear,
+                description,
+                DataSeeder.getRandomPrice(LOWER_PRICE, UPPER_EXCLUSIVE_PRICE),
+                0.0f,
+                "First Edition",
+                Set.of(),
+                Set.of()
+        );
+
+    }
+
+    private static float getRandomPrice(float lower, float upperExclusive) {
+        return ThreadLocalRandom.current().nextFloat(lower, upperExclusive);
     }
 }

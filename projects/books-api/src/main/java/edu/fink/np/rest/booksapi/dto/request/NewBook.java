@@ -1,5 +1,7 @@
 package edu.fink.np.rest.booksapi.dto.request;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -10,6 +12,8 @@ public record NewBook(@NotBlank String title,
                       @NotBlank String publisher,
                       @NotNull Integer publishingYear,
                       @Length(min = 0, max = 8192) String description,
+                      @NotBlank @Min(0) Float price,
+                      @NotBlank @Min(0) @Max(100) Float discount,
                       String edition,
                       Set<Long> authorsIds,
                       Set<Long> genresIds) {
