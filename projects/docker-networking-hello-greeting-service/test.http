@@ -1,0 +1,31 @@
+### Hello
+
+POST http://localhost:5001/hello
+Content-Type: application/json
+
+{
+  "name": "Nenad"
+}
+
+
+### Hello 2
+POST http://localhost:5002/hello
+Content-Type: application/json
+
+{
+  "name": "Nenad"
+}
+
+
+### Greet
+
+POST http://localhost:5001/greet
+Content-Type: application/json
+
+
+### Greet 2
+
+POST http://localhost:5002/greet
+Content-Type: application/json
+
+

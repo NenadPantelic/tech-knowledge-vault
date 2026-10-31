@@ -24,7 +24,7 @@ Accept: application/xml
 </book>
 
 ### Fetch a book
-POST http://localhost:8080/getBook/3de6f97b-1740-4695-9723-50e0a4b6a702 HTTP/1.1
+POST http://localhost:8080/getBook/4ceff01f-8bc6-49fc-a45b-877f8360743c HTTP/1.1
 Content-type: application/xml 
 Accept: application/xml 
 # or text/xml
@@ -49,7 +49,7 @@ Accept: application/json
 }
 
 ### Fetch a book
-GET http://localhost:8080/api/v1/level-one/books/7264ccf7-c1ed-4567-b872-ba6ea8c3fdaa HTTP/1.1
+GET http://localhost:8080/api/v1/level-one/books/5c042a4f-301d-4d72-9252-bb8574eb56b1 HTTP/1.1
 Content-type: application/json
 Accept: application/json 
 
@@ -74,7 +74,7 @@ Accept: application/json
 }
 
 ### Fetch a book
-GET http://localhost:8080/api/v1/level-two/books/57580be0-2dae-4471-8ae3-594aafa9086c HTTP/1.1
+GET http://localhost:8080/api/v1/level-two/books/c5a983af-a78f-4e01-9f5f-8e1963ec4a4c HTTP/1.1
 Content-type: application/json
 Accept: application/json 
 
@@ -97,7 +97,7 @@ Accept: application/json
 
 ### V2 endpoints ###
 ###  List all books
-GET http://localhost:8080/api/v2/books HTTP/1.1
+GET http://localhost:8084/api/v2/books HTTP/1.1
 Accept: application/json
 
 

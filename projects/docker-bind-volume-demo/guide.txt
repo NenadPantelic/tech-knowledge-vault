@@ -1,0 +1,37 @@
+1. Kreirati Docker image na osnovu Dockerfile
+docker build . -t files-api:0.1
+
+2. Kreirati folder `store`
+3. Pokrenuti kontejner uz mount bind komandom: 
+
+docker run -dit --name file-store-server--mount type=bind,src="$(pwd)/store",target=/app/store -p 5000:5000 files-api:0.1
+
+---
+1. pokrenuti Ubuntu kontejner: 
+docker run --rm -dit --name my-ubuntu ubuntu:bionic
+
+2. Uci u kontejner i instalirati curl:
+docker exec -it my-ubuntu bash
+apt update
+apt install curl
+3. Izvrsiti sledecu curl komandu:
+curl --request POST \
+  --url file-store-server:5000/api/v1/files\
+  --header 'Content-Type: application/json' \
+  --cookie JSESSIONID=BFF5A546D54F4E1B0523E8DA987BBD43 \
+  --data '{
+	"content": "Docker demo 2222"
+}'
+
+
+Ovo ne radi?
+
+Da bi radilo, oba kontejnera moraju biti na istoj mreži:
+
+docker network create -d bridge file-network
+1. demo kontejner
+docker network connect file-network file-store-server
+2. my-ubuntu kontejner
+docker network connect file-network my-ubuntu
+
+Probajte opet isti curl poziv. 

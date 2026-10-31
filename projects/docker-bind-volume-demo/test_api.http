@@ -1,0 +1,16 @@
+
+
+### Send a file
+
+POST http://localhost:5000/api/v1/files
+Content-Type: application/json
+
+{
+    "content": "Lorem ipsum 2222..."
+}
+
+
+### Get a file by ID
+
+GET http://localhost:5000/api/v1/files/d3e102bf-aa60-402a-bb35-d19efca1b6bc
+Accept: application/json
