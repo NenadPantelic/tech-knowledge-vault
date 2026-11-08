@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: books-api
+
+  #  volatile in-memory database
+  datasource:
+    url: jdbc:h2:mem:bookdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+    consumer:
+      group-id: book-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.value.default.type: edu.fink.np.rest.booksapi.dto.message.BookEnrichmentResponseMessage
+        spring.json.trusted.packages: edu.fink.np.rest.booksapi.dto.message
+        spring.json.use.type.headers: false
+
+enrichment:
+  description:
+    length: 300
+
